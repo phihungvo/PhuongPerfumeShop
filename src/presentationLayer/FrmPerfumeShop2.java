@@ -13,9 +13,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JDesktopPane;
 import java.awt.BorderLayout;
 
-public class FrmPerfumeShop {
+public class FrmPerfumeShop2 {
 
-	private JFrame frmQuanLyPerfume;
+	private JFrame frmQuanLyPerfume2;
 	private JDesktopPane desktopPane ;
 	private JMenuItem mntmNewMenuItem_4;
 	private JMenuItem mntmNewMenuItem_5;
@@ -44,9 +44,9 @@ public class FrmPerfumeShop {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmPerfumeShop window = new FrmPerfumeShop();
-					window.frmQuanLyPerfume.setExtendedState(JFrame.MAXIMIZED_BOTH);;
-					window.frmQuanLyPerfume.setVisible(true);
+					FrmPerfumeShop2 window = new FrmPerfumeShop2();
+					window.frmQuanLyPerfume2.setExtendedState(JFrame.MAXIMIZED_BOTH);;
+					window.frmQuanLyPerfume2.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,7 +57,7 @@ public class FrmPerfumeShop {
 	/**
 	 * Create the application.
 	 */
-	public FrmPerfumeShop() {
+	public FrmPerfumeShop2() {
 		initialize();
 	}
 
@@ -65,13 +65,13 @@ public class FrmPerfumeShop {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmQuanLyPerfume = new JFrame();
-		frmQuanLyPerfume.setTitle("Quan ly PerfumeShop");
-		frmQuanLyPerfume.setBounds(100, 100, 741, 300);
-		frmQuanLyPerfume.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmQuanLyPerfume2 = new JFrame();
+		frmQuanLyPerfume2.setTitle("Quan ly PerfumeShop");
+		frmQuanLyPerfume2.setBounds(100, 100, 741, 300);
+		frmQuanLyPerfume2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
-		frmQuanLyPerfume.setJMenuBar(menuBar);
+		frmQuanLyPerfume2.setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu_5 = new JMenu("He thong");
 		menuBar.add(mnNewMenu_5);
@@ -144,9 +144,9 @@ public class FrmPerfumeShop {
 		
 		mntmNewMenuItem_13 = new JMenuItem("Quan ly nguoi dung");
 		mnNewMenu_4.add(mntmNewMenuItem_13);
-		frmQuanLyPerfume.getContentPane().setLayout(new BorderLayout(0, 0));
+		frmQuanLyPerfume2.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		desktopPane = new JDesktopPane();
-		frmQuanLyPerfume.getContentPane().add(desktopPane, BorderLayout.CENTER);
+		frmQuanLyPerfume2.getContentPane().add(desktopPane, BorderLayout.CENTER);
 	}
 }

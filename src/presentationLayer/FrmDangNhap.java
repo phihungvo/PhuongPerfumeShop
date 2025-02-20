@@ -2,24 +2,27 @@ package presentationLayer;
 
 import java.awt.EventQueue;
 
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import bussinessLogicLayer.NguoiDungBL;
 import dataTransferObject.NguoiDung;
 
-import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FrmDangNhap extends JInternalFrame {
+public class FrmDangNhap extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 	private JTextField txtEmail;
-	private JPasswordField txtPassword;
+	private JTextField txtPassword;
 
 	/**
 	 * Launch the application.
@@ -41,48 +44,51 @@ public class FrmDangNhap extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public FrmDangNhap() {
-		setClosable(true);
-		setTitle("Dang nhap");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmDangNhap.class.getResource("/images/d_g.png")));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Email");
-		lblNewLabel.setBounds(55, 31, 81, 23);
-		getContentPane().add(lblNewLabel);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(146, 31, 242, 23);
-		getContentPane().add(txtEmail);
+		txtEmail.setBounds(127, 57, 230, 29);
+		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
 		
+		txtPassword = new JTextField();
+		txtPassword.setColumns(10);
+		txtPassword.setBounds(127, 118, 230, 29);
+		contentPane.add(txtPassword);
+		
+		JLabel lblNewLabel = new JLabel("Email");
+		lblNewLabel.setBounds(35, 64, 46, 14);
+		contentPane.add(lblNewLabel);
+		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(55, 104, 81, 23);
-		getContentPane().add(lblPassword);
+		lblPassword.setBounds(35, 125, 46, 14);
+		contentPane.add(lblPassword);
 		
-		txtPassword = new JPasswordField();
-		txtPassword.setBounds(146, 105, 242, 21);
-		getContentPane().add(txtPassword);
-		
-		JButton btnNewButton = new JButton("Dang nhap");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnLogin = new JButton("Đăng nhập");
+		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String email, password;
 				
 				email = txtEmail.getText();
-				password = new String(txtPassword.getPassword());
+				password = txtPassword.getText();
 				
 				NguoiDung nd = NguoiDungBL.timNguoiDung(email, password);
 				
 				if (nd != null) {
-					JOptionPane.showMessageDialog(rootPane, "Dang nhap thanh cong");
-				}else
-					JOptionPane.showMessageDialog(rootPane, "Dang nhap khong thanh cong! Sai Email hoac Password!");
-				
-				
+					JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công");
+				}else {
+					JOptionPane.showMessageDialog(rootPane, "Đăng nhập không thành công! Sai Email hoặc Password!");
+				}
 			}
 		});
-		btnNewButton.setBounds(110, 160, 194, 41);
-		getContentPane().add(btnNewButton);
-
+		btnLogin.setBounds(140, 183, 124, 29);
+		contentPane.add(btnLogin);
 	}
 }

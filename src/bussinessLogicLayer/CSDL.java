@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class CSDL {
 	private static Connection ketNoi;
 	
-	private static final String url = "";
-	
+	private static final String url = "jdbc:mysql://localhost:3306/phuong_perfume_shop";
+
 	public static Connection getKetNoi() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
