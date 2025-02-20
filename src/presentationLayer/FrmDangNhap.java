@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class FrmDangNhap extends JFrame {
@@ -79,7 +80,13 @@ public class FrmDangNhap extends JFrame {
 				email = txtEmail.getText();
 				password = txtPassword.getText();
 				
-				NguoiDung nd = NguoiDungBL.timNguoiDung(email, password);
+				NguoiDung nd;
+				try {
+					nd = NguoiDungBL.dangNhapNguoiDung(email, password);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				if (nd != null) {
 					JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công");
