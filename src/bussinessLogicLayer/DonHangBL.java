@@ -10,16 +10,17 @@ import java.util.List;
 
 import dataTransferObject.ChiTietDonHang;
 import dataTransferObject.DonHang;
+import dataTransferObject.DonHangDTO;
+import dataTransferObject.TrangThaiDonHang;
 
 public class DonHangBL {
 	
-	public static List<DonHang> dsDonHangTheoSQL() throws SQLException, ClassNotFoundException{
+	public static List<DonHang> dsDonHangTheoSQL(String sql) throws SQLException, ClassNotFoundException{
 		List<DonHang> danhSachDonHang;
 		
 		try (Connection conn = CSDL.getKetNoi()){
 			danhSachDonHang = new ArrayList<>();
 			Statement statement = conn.createStatement();
-			String sql = "select * from donhang";
 			ResultSet resultSet = statement.executeQuery(sql);
 			
 			while (resultSet.next()) {
@@ -38,6 +39,30 @@ public class DonHangBL {
 		}
 		return danhSachDonHang;
 	}
+	
+	public static List<DonHangDTO> dsDonHangTheoSQL2(String sql, String tenKh) throws SQLException, ClassNotFoundException {
+	    List<DonHangDTO> danhSachDonHang = new ArrayList<>();
+
+	    try (Connection conn = CSDL.getKetNoi();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setString(1, "%" + tenKh + "%"); // Thêm tham số cho LIKE
+	        ResultSet resultSet = ps.executeQuery();
+
+	        while (resultSet.next()) {
+	            DonHangDTO donHang = new DonHangDTO(
+	                resultSet.getInt("id"),
+	                resultSet.getDate("ngaydathang"),
+	                resultSet.getString("hoten"), // Lấy tên khách hàng
+	                resultSet.getBoolean("thanhtoan"),
+	                resultSet.getString("tentrangthai")
+	            );
+	            danhSachDonHang.add(donHang);
+	        }
+	    }
+	    return danhSachDonHang;
+	}
+
 	
 	
 	public static DonHang layDonHangTheoId(int id) throws SQLException, ClassNotFoundException{
@@ -145,6 +170,25 @@ public class DonHangBL {
 			return statement.executeUpdate();
 		}
 	}
+	
+	public static List<TrangThaiDonHang> danhhSachTTDH() throws SQLException, ClassNotFoundException{
+		List<TrangThaiDonHang> dsTTDH;
+		
+		try (Connection conn = CSDL.getKetNoi()){
+			dsTTDH = new ArrayList<>();
+			String sql = "Select * from trangthaidonhang";
+			Statement statement = conn.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			
+			while (resultSet.next()) {
+				TrangThaiDonHang ttdh = new TrangThaiDonHang();
+				ttdh.setId(resultSet.getInt("id"));
+				ttdh.setTenTrangThai(resultSet.getString("tentrangthai"));
+				dsTTDH.add(ttdh);
+			}
+		}
+		return dsTTDH;
+	}
 
 	
 	
@@ -169,6 +213,12 @@ public class DonHangBL {
 			System.out.println("Xoa thanh cong");
 		else if (success == 0)
 			System.out.println("Xoa that bai");
+		
+		
+		List<TrangThaiDonHang> dsdh2 = danhhSachTTDH();
+		for(TrangThaiDonHang ttdh : dsdh2) {
+			System.out.println("Id "+ttdh.getId() + " ten tt: "+ttdh.getTenTrangThai());
+		}
 	}
 
 }
