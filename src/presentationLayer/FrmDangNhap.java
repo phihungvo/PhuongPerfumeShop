@@ -80,7 +80,7 @@ public class FrmDangNhap extends JFrame {
 				email = txtEmail.getText();
 				password = txtPassword.getText();
 				
-				NguoiDung nd;
+				NguoiDung nd = new NguoiDung();;
 				try {
 					nd = NguoiDungBL.dangNhapNguoiDung(email, password);
 				} catch (ClassNotFoundException | SQLException e1) {

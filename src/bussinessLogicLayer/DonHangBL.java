@@ -40,13 +40,17 @@ public class DonHangBL {
 		return danhSachDonHang;
 	}
 	
-	public static List<DonHangDTO> dsDonHangTheoSQL2(String sql, String tenKh) throws SQLException, ClassNotFoundException {
+	public static List<DonHangDTO> dsDonHangTheoSQL2(String sql, List<Object> params) throws SQLException, ClassNotFoundException {
 	    List<DonHangDTO> danhSachDonHang = new ArrayList<>();
 
 	    try (Connection conn = CSDL.getKetNoi();
 	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	    	
+	    	// Set giá trị cho tham số
+	    	for (int i = 0; i < params.size(); i++) {
+	    		ps.setObject(i + 1, params.get(i));
+	    	}
 
-	        ps.setString(1, "%" + tenKh + "%"); // Thêm tham số cho LIKE
 	        ResultSet resultSet = ps.executeQuery();
 
 	        while (resultSet.next()) {
@@ -155,13 +159,6 @@ public class DonHangBL {
 	    }
 	}
 	
-//	public static void xoaChiTietDonHang(int id) throws SQLException, ClassNotFoundException{
-//		try (Connection conn = CSDL.getKetNoi()){
-//			String sql = "DELETE FROM chitietdonhang WHERE id = '" + id + "'";
-//			PreparedStatement statement = conn.prepareStatement(sql);
-//			statement.execute();
-//		}
-//	}
 	
 	public static int xoaChiTietDonHang(int id) throws SQLException, ClassNotFoundException{
 		try (Connection conn = CSDL.getKetNoi()){
@@ -193,10 +190,6 @@ public class DonHangBL {
 	
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		List<DonHang> dsdh = dsDonHangTheoSQL();
-		for(DonHang donHang : dsdh) {
-			System.out.println(donHang.toString());
-		}
 		
 		System.out.println("Test 2");
 		DonHang donHang = layDonHangTheoId(13);
